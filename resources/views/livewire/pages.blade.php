@@ -18,7 +18,7 @@
                                 No
                             </th>
                             <th scope="col" class="px-6 py-3">
-                                Title test
+                                Title
                             </th>
                             <th scope="col" class="px-6 py-3">
                                 Link
@@ -37,7 +37,9 @@
                                 <tr class="bg-white border-b">
                                     <th class="px-6 py-4 font-normal">{{$item->id}}</th>
                                     <th class="px-6 py-4 font-normal">
-                                        {{ $item-> title }}
+                                        {{ $item->title }}
+                                        {!! $item->is_default_home ? '<span class="text-xs bg-blue-400 text-white font-bold rounded-full px-2 py-1">Default Home Page</span>' : '' !!}
+                                        {!! $item->is_default_not_found ? '<span class="text-xs bg-red-400 text-white font-bold rounded-full px-2 py-1">Default 404 Page</span>' : '' !!}
                                     </th>
                                     <td class="px-6 py-4">
                                         <a 
@@ -106,16 +108,29 @@
                     @enderror
                 </div>
                 <div class="mt-4">
+                     <label>
+                        <input class="form-checkbox" type="checkbox" value="{{ $isSetToDefaultHomePage }}" wire:model="isSetToDefaultHomePage"/>
+                        <span class="ml-2 text-sm text-gray-600">Set as the default home page</span>
+                     </label>
+                </div>
+                <div class="mt-4">
+                    <label>
+                       <input class="form-checkbox" type="checkbox" value="{{ $isSetToDefaultNotFoundPage }}" wire:model="isSetToDefaultNotFoundPage"/>
+                       <span class="ml-2 text-sm text-gray-600">Set as the default 404 error page</span>
+                    </label>
+               </div>
+                <div class="mt-4">
                     <x-label for="title" value="{{ __('Content') }}" />
                     <div class="rounded-md shadow-sm">
                         <div class="mt-1 bg-white">                      
                             <div class="body-content" wire:ignore>                            
-                                <trix-editor
+                                {{-- <trix-editor
                                     class="trix-content"
                                     x-ref="trix"
                                     wire:model.debounce.100000ms="content"
                                     wire:key="trix-content-unique-key"
-                                ></trix-editor>
+                                ></trix-editor> --}}
+                            <input wire:model.debounce.100000ms="content" class="form-input flex-1 block w-full rounded-none rounded-r-md transition duration-150 ease-in-out sm:text-sm sm:leading-5 border-gray-300">
                             </div>
                         </div>
                     </div>
